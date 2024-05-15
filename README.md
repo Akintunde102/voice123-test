@@ -1,4 +1,4 @@
-# Voice 123 test
+# Voice123 test
 
 ## Application setup guide.
 
