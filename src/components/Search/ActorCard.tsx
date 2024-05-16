@@ -8,6 +8,8 @@ import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import CardActions from '@mui/material/CardActions';
 import AudioPlayer from '@/src/components/AudioPlayer/AudioPlayer';
+import { PartialActorResponseItem } from '@/src/app/type';
+import { mapActorDetails } from '@/src/app/utils';
 
 const styles = {
     card: {
@@ -15,7 +17,8 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: "20px 0"
+        padding: "20px 0",
+        height: "200px"
     },
     avatar: {
         bgcolor: "#f50",
@@ -32,7 +35,15 @@ const styles = {
     },
 };
 
-export const ActorCard = () => {
+
+interface ActorCardProps {
+    item: PartialActorResponseItem;
+    matchingValue: string;
+}
+
+
+export const ActorCard = ({ item, matchingValue }: ActorCardProps) => {
+    const { name, summary, pictureSource, nameInitials, username, headline, track } = mapActorDetails(item, matchingValue);
 
     return (
         <Grid item xs={12} sm={6} md={4}>
@@ -44,34 +55,34 @@ export const ActorCard = () => {
                         <Avatar
                             sizes="large"
                             sx={styles.avatar}
-                            aria-label="recipe">
-                            MD
+                            aria-label="recipe"
+                            src={pictureSource}
+                        >
+                            {nameInitials}
                         </Avatar>
 
                         <Typography sx={styles.actorName} variant="subtitle1" component="div">
-                            <Link href="https://voice123.com/dave" target="_blank" sx={styles.actorName}>
-                                Mathew Dave
+                            <Link href={`https://voice123.com/${username}`} target="_blank" sx={styles.actorName}>
+                                {name}
                             </Link>
                         </Typography>
 
                         <Typography sx={styles.actorDescription} variant="subtitle2" component="div">
-                            Dave is a special dude
+                            {headline}
                         </Typography>
                     </Box>
 
-                    <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                    </Typography>
+                    <Box sx={{
+                        height: "100px"
+                    }}>
+                        <Typography variant="subtitle2" color="text.secondary" >
+                            {summary}
+                        </Typography>
+                    </Box>
                 </CardContent>
                 <CardActions disableSpacing>
                     <AudioPlayer
-                        track={{
-                            title: 'Its a beautiful day',
-                            src: "https://res.cloudinary.com/dsph6hnfu/video/upload/v1715810030/kio_oq3pcr.mp3",
-                            author: 'Trinix ft Rushawn',
-                            thumbnail: "https://srv.carbonads.net/static/30242/5553640155979510763aebb62751652e628b00e1",
-                        }} />
+                        track={track} />
                 </CardActions>
             </Card>
         </Grid >

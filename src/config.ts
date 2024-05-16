@@ -1,0 +1,1 @@
+export const VOICE123_SEARCH_API_URL = "https://api.sandbox.voice123.com/providers/search/?service=voice_over"

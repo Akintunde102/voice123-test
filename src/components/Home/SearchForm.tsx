@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
+import { useSafeRouter } from '@/src/app/utils';
 
 const styles = {
     container: {
@@ -40,38 +41,59 @@ const styles = {
 };
 
 export default function SearchForm() {
+    const router = useSafeRouter();
+    const [searchQuery, setSearchQuery] = React.useState<string>('');
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (searchQuery) {
+            router.push(`/search?q=${searchQuery}`);
+        }
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setSearchQuery(e.target.value)
+    }
+
+
     return (
         <Container sx={styles.container}>
-            <Stack sx={styles.stack}>
-                <Typography variant="h1" sx={styles.title}>
-                    Voice123
-                    <Typography component="span" variant="h1" sx={styles.titleSpan}>
-                        Search
-                    </Typography>
-                </Typography>
-                <Grid container spacing={0.5} alignItems="center" sx={styles.grid}>
-                    <Grid item xs={12} sm={9}>
-                        <TextField
-                            id="outlined-basic"
-                            hiddenLabel
-                            size="small"
-                            variant="outlined"
-                            aria-label="Search for Voice Actors"
-                            placeholder="Cartoon Voice Actor"
-                            inputProps={{
-                                autoComplete: 'off',
-                                'aria-label': 'Search for Voice Actors',
-                            }}
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={3}>
-                        <Button variant="contained" color="primary" startIcon={<SearchIcon />}>
+            <form onSubmit={handleSubmit}>
+                <Stack sx={styles.stack}>
+
+                    <Typography variant="h1" sx={styles.title}>
+                        Voice123
+                        <Typography component="span" variant="h1" sx={styles.titleSpan}>
                             Search
-                        </Button>
+                        </Typography>
+                    </Typography>
+                    <Grid container spacing={0.5} alignItems="center" sx={styles.grid}>
+                        <Grid item xs={12} sm={9}>
+                            <TextField
+                                id="outlined-basic"
+                                hiddenLabel
+                                size="small"
+                                variant="outlined"
+                                aria-label="Search for Voice Actors"
+                                placeholder="Cartoon Voice Actor"
+                                inputProps={{
+                                    autoComplete: 'off',
+                                    'aria-label': 'Search for Voice Actors',
+                                }}
+                                fullWidth
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={3}>
+                            <Button type="submit" variant="contained" color="primary" startIcon={<SearchIcon />}>
+                                Search
+                            </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Stack>
+                </Stack>
+
+            </form>
         </Container>
     );
 }

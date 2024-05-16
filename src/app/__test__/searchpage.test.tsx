@@ -3,10 +3,6 @@ import SearchPage from '../search/page'
 
 describe('SearchPage', () => {
 
-    jest
-        .spyOn(window.HTMLMediaElement.prototype, 'pause')
-        .mockImplementation(() => { })
-
     it('renders SearchPage component with input with correct placeholder', () => {
         render(<SearchPage />)
 
@@ -22,12 +18,12 @@ describe('SearchPage', () => {
         expect(container).toMatchSnapshot();
     });
 
-    it('renders at least one link', () => {
+    it('renders no result text when there is no result', () => {
         render(<SearchPage />)
 
-        const links = screen.getAllByRole('link');
+        const noResultText = screen.getByText(/loading data/i)
 
-        expect(links.length).toBeGreaterThan(0)
+        expect(noResultText).toBeInTheDocument()
     });
 
 
