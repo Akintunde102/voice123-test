@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import SearchForm from './components/SearchForm';
+import SearchForm from '../components/Home/SearchForm';
 
 export default function HomePage() {
   return (

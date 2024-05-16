@@ -9,7 +9,7 @@ exports[`Page renders homepage unchanged 1`] = `
       class="MuiContainer-root MuiContainer-maxWidthLg css-1tgbrhe-MuiContainer-root"
     >
       <div
-        class="MuiStack-root css-fgqtrf-MuiStack-root"
+        class="MuiStack-root css-4i30ot-MuiStack-root"
       >
         <h1
           class="MuiTypography-root MuiTypography-h1 css-4713h1-MuiTypography-root"
